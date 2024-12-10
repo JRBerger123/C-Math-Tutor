@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/workspaces/C-Math-Tutor/MathTutor.cpp
+MathTutor.h
+/workspaces/C-Math-Tutor/MathTutor.h
+
+/workspaces/C-Math-Tutor/MathTutor.h
+string
+-
+tuple
+-
+iostream
+-
+ctime
+-
+algorithm
+-
+vector
+-
+iomanip
+-
+
