@@ -4,14 +4,14 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/workspaces/C-Math-Tutor/MathTutor.cpp" "/workspaces/C-Math-Tutor/CMakeFiles/MathTutor.dir/MathTutor.cpp.o"
-  "/workspaces/C-Math-Tutor/main.cpp" "/workspaces/C-Math-Tutor/CMakeFiles/MathTutor.dir/main.cpp.o"
+  "/workspaces/C-Math-Tutor/MathTutor.cpp" "/workspaces/C-Math-Tutor/build/CMakeFiles/MathTutor.dir/MathTutor.cpp.o"
+  "/workspaces/C-Math-Tutor/main.cpp" "/workspaces/C-Math-Tutor/build/CMakeFiles/MathTutor.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "."
+  "../"
   )
 
 # Targets to which this target links.

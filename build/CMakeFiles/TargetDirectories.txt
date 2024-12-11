@@ -1,0 +1,3 @@
+/workspaces/C-Math-Tutor/build/CMakeFiles/rebuild_cache.dir
+/workspaces/C-Math-Tutor/build/CMakeFiles/edit_cache.dir
+/workspaces/C-Math-Tutor/build/CMakeFiles/MathTutor.dir
