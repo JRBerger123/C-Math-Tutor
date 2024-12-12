@@ -28,7 +28,7 @@ int main() {
 
     while (true) {
         questionTuple = generateQuestion(currentLevel, levelIncrement);
-        isCorrect = getAnswer(get<0>(questionTuple), get<1>(questionTuple), currentAttempt, maxAttempts);
+        isCorrect = getAnswer(get<0>(questionTuple), get<1>(questionTuple), currentAttempt, maxAttempts, currentLevel);
 
         if (isCorrect) {
             totalCorrect += 1;
@@ -38,7 +38,7 @@ int main() {
 
         questionList.push_back(make_tuple(currentLevel, get<0>(questionTuple), get<1>(questionTuple), currentAttempt, isCorrect));
 
-        levelChange(totalCorrect, totalIncorrect, levelChangeAttemps, currentLevel);
+        levelChange(totalCorrect, totalIncorrect, levelChangeAttemps, currentLevel, levelIncrement);
 
         if (!playAgain()) {
             break;

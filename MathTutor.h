@@ -15,8 +15,8 @@ void displayIntro();
 void getUserName(std::string& username);
 void maxAttemptsPrompt(int& maxAttempts);
 std::tuple<std::string, int> generateQuestion(const int& currentLevel, const int& levelRangeIncrement);
-bool getAnswer(const std::string question, const int answer, int& currentAttempt, const int& maxAttempts);
-void levelChange(const int& totalCorrect, const int& totalIncorrect, const int& levelChangeAttempts, int& currentLevel);
+bool getAnswer(const std::string question, const int answer, int& currentAttempt, const int& maxAttempts, const int& currentLevel);
+void levelChange(const int& totalCorrect, const int& totalIncorrect, const int& levelChangeAttempts, int& currentLevel, const int& levelIncrement);
 bool playAgain();
 void summary(const std::vector<std::tuple<int, std::string, int, int, bool>>& questionList, int totalAttempts, const int& totalCorrect, const int& totalIncorrect);
 

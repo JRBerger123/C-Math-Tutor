@@ -36,7 +36,8 @@ void getUserName(string& username) { // funtion gets the username and pushes it 
     // Instead of returning a new string we just edit the original, using pass by reference 
     cout << "Please enter your name: ";
     cin >> username;
-    cout << "Hello " << username << ". Thank you for choosing our Silly Simple Math Tutor!" << endl;
+    cout << endl << "Hello " << username << ", ";
+    cout << "Thank you for choosing our Silly Simple Math Tutor!" << endl << endl;
 }
 
 // Asks the user how many attempts that they would like to solve the equation
@@ -63,13 +64,19 @@ void maxAttemptsPrompt(int& maxAttempts){
 }
 
 tuple<string, int> generateQuestion(const int& currentLevel, const int& levelRangeIncrement) {
-    int num1 = rand() % (currentLevel * levelRangeIncrement) + 1; // Random number between 1 and 100
-    int num2 = rand() % (currentLevel * levelRangeIncrement) + 1; // Random number between 1 and 100
+    int num1 = rand() % (currentLevel * levelRangeIncrement) + 1; // input the number range based on the level of the user
+    int num2 = rand() % (currentLevel * levelRangeIncrement) + 1;
     char operations[] = {'+', '-', '*', '/'};
     char operation = operations[rand() % 4];
     string question = "";
     int answer = 0;
     
+    if (num1 < num2) { // Makes sure that the answer is never negative
+        int num3 = num1; // Temporary swap variable
+        num2 = num1;
+        num1 = num3;
+    }
+
     switch (operation) {
         case '+':
             question = to_string(num1) + " + " + to_string(num2);
@@ -93,36 +100,43 @@ tuple<string, int> generateQuestion(const int& currentLevel, const int& levelRan
     return make_tuple(question, answer);
 }
 
-bool getAnswer(const string question, const int answer, int& currentAttempt, const int& maxAttempts) {
+bool getAnswer(const string question, const int answer, int& currentAttempt, const int& maxAttempts, const int& currentLevel) {
     string userInput = "";
     currentAttempt = 1; 
 
-    if (currentAttempt <= maxAttempts) {
-        while (true) {
-            try {
-                cout << "Attempt [" << currentAttempt << "]: " << question << " = ";
-                cin >> userInput;
-                if (stoi(userInput) == answer) { // if the user input equals the answer 
-                    return true;
-                } else { // if the user get the answert wrong it will increment and carry on with the while loop
-                    currentAttempt++;
-                    cout << "Incorrect answer, try again" << endl;
-                    continue;
-                }
-            } catch (const invalid_argument& e) {
-                cout << "Invalid Input: input must be an integer" << endl;
-            } catch (const out_of_range& e) {
-                cout << "Invalid Input: input is out of range for an integer" << endl;
+    //cout << "Current Attempt: " << currentAttempt << endl;
+
+    while (currentAttempt <= maxAttempts) {
+        try {
+            cout << "Level " << currentLevel << ", " << "Attempt " << currentAttempt << ": " << endl;
+            cout << "  " << question << " = ";
+            cin >> userInput;
+            if (stoi(userInput) == answer) { // if the user input equals the answer 
+                cout << "    Correct!" << endl << endl;
+                return true;
+            } else { // if the user get the answert wrong it will increment and carry on with the while loop
+                currentAttempt++;
+                cout << "    Incorrect answer, please try again." << endl << endl;
+                continue;
             }
+        } catch (const invalid_argument& e) {
+            cout << "    Invalid Input: input must be an integer" << endl << endl;
+        } catch (const out_of_range& e) {
+            cout << "    Invalid Input: input is out of range for an integer" << endl << endl;
         }
-    } else {
-        cout << "You have ran out of attempts";
-        return false;
     }
+    cout << "You have run out of attempts" << endl << endl;
+    return false;
 }
 
-void levelChange (const int &totalCorrect, const int &totalIncorrect, const int& levelChangeAttempts, int &currentLevel) {
+void levelChange (const int &totalCorrect, const int &totalIncorrect, const int& levelChangeAttempts, int &currentLevel, const int& levelIncrement) {
+    int previousLevel = currentLevel;
     currentLevel = max(1, 1 + static_cast<int>(totalCorrect / levelChangeAttempts) - static_cast<int>(totalIncorrect / levelChangeAttempts));
+
+    if (currentLevel != previousLevel) {
+        cout << "Level changed to " << currentLevel << endl;
+        cout << "  Range of variables changed to 0 - " << levelIncrement * currentLevel << endl << endl;
+    }
 }
 
 bool playAgain() {
@@ -131,6 +145,7 @@ bool playAgain() {
         try {
             cout << "Do you want to continue (y = yes | n = no)? ";
             cin >> userInput;
+            cout << endl;
 
             //to lowercase the user's input
             for (int i = 0; i < userInput.size(); i++) {
@@ -192,5 +207,5 @@ void summary(const vector<tuple<int, string, int, int, bool>>& questionList, int
     cout << "Total Incorrect:" << setw(5) << totalIncorrect << endl;
     cout << "Average Correct:" << setw(5) << (totalCorrect * 100)/combinedAttempts << "%" << endl;
     cout <<endl;
-    cout <<  ":::::::::::::::::::::::::::::::::::::" << endl;
+    cout <<  ":::::::::::::::::::::::::::::::::::::" << endl << endl;
 }
